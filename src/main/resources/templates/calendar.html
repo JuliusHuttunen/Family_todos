@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Perhekalenteri</title>
+	<meta http-equiv="Content-Type" content="text.html" charset="UTF-8">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="container">
+	<form class = "float-right" th:action="@{/logout}" method="post">
+			<input type="submit" value="Kirjaudu ulos" class="btn btn-sm btn-danger"/>
+		</form>
+	<div class="col-md-4"style="padding:20px 0">
+	
+		<h1>Tapahtumat</h1>
+		
+	</div>
+	<table class="table table-hover table-dark" id="myTable">
+		<tbody>
+			<tr>
+				<th>Päivä</th>
+				<th>Kuukausi</th>
+				<th colspan ="2">Kellonaika</th>
+				<th>Kuvaus</th>
+				<th colspan ="2">Asetukset</th>
+				
+			</tr>
+			<tr th:each = "task : ${tasks}">
+				<td th:text="${task.date}"></td>
+				<td th:text="${task.month.name}"></td>
+				<td th:text="${task.hour}"></td>
+				<td th:text="${task.minute}"></td>
+				<td th:text="${task.description}"></td>
+				
+				<td><a th:href="@{/delete/{id}(id=${task.id})}"class="btn btn-danger btn-sm" role="button">Poista</a></td>
+				<td><a th:href="@{/edit/{id}(id=${task.id})}"class="btn btn-success btn-sm" role="button">Muokkaa</a></td>
+				
+			</tr>
+		</tbody>
+	</table>
+	<a href="/add" class="btn btn-success btn-sm" role="button">Uusi tapahtuma</a>  
+</div>
+</body>
+
+</html>

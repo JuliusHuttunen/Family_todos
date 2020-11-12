@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Muokkaa tapahtumaa</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<h1>Muokkaa tapahtumaa</h1>
+	<div class ="form-row">
+		<form th:object="${task}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}" />
+		  	<div class ="form-group col-md-10">
+		
+		  	<p>Päivä: <span id="range3"></span></p>
+			<input type="range" min="0" max="31" class="form-control" id="date" th:field="*{date}" />
+							
+		  	<label for="monthlist">Kuukausi</label>
+			<select id="monthlist" th:field="*{month}" class="form-control">
+       		<option th:each="month: ${months}" th:value="${month.monthid}" th:text="${month.name}"></option>
+    		</select>
+    		
+    		<p>Tunnit: <span id="range1"></span></p>
+			<input type="range" min="0" max="24" class="form-control" id ="myHours" th:field="*{hour}" />
+			
+			<p>Minuutit: <span id="range2"></span></p>
+			<input type="range" min="0" max="60" step="5" class="form-control" id = "myMinutes" th:field="*{minute}" />
+			
+			
+			<label for="description">Kuvaus</label>
+			<input type="text" class="form-control" th:field="*{description}" />
+			
+			</div>
+			<div class ="form-group col-md-10">
+			<input type="submit" value="Tallenna"></input>
+			</div>
+		</form>
+	</div>
+	<script>
+		var slider = document.getElementById("myHours");
+		var output = document.getElementById("range1");
+		output.innerHTML = slider.value;
+
+		slider.oninput = function() {
+  		output.innerHTML = this.value;
+			}
+		
+		var slider2 = document.getElementById("myMinutes");
+		var output2 = document.getElementById("range2");
+		output2.innerHTML = slider2.value;
+
+		slider2.oninput = function() {
+  		output2.innerHTML = this.value;
+			}
+		
+		var slider3 = document.getElementById("date");
+		var output3 = document.getElementById("range3");
+		output3.innerHTML = slider3.value;
+
+		slider3.oninput = function() {
+  		output3.innerHTML = this.value;
+			}
+</script>
+</body>
+</html>
