@@ -7,15 +7,44 @@
 </head>
 <body>
 	<div class="container">
+	<h3 th:inline="text">Tervetuloa, [[${#httpServletRequest.remoteUser}]]!</h3>
 	<form class = "float-right" th:action="@{/logout}" method="post">
 			<input type="submit" value="Kirjaudu ulos" class="btn btn-sm btn-danger"/>
 		</form>
-	<div class="col-md-4"style="padding:20px 0">
+	<div class="col-md-5"style="padding:20px 0">
 	
-		<h1>Tapahtumat</h1>
+		<h2>Seuraava tapahtuma</h2>
+	</div>
+		<table class="table table-dark" id="myTable">
+		<tbody>
+			<tr>
+				<th>Päivä</th>
+				<th>Kuukausi</th>
+				<th colspan ="2">Kellonaika</th>
+				<th>Kuvaus</th>
+				<th colspan ="2">Asetukset</th>
+				
+			</tr>
+			<tr th:each = "task, iterStat : ${tasks}"
+			 th:if="${iterStat.first}">
+				<td th:text="${task.date}"></td>
+				<td th:text="${task.month.name}"></td>
+				<td th:text="${task.hour}"></td>
+				<td th:text="${task.minute}"></td>
+				<td th:text="${task.description}"></td>
+				
+				<td><a th:href="@{/delete/{id}(id=${task.id})}"class="btn btn-danger btn-sm" role="button">Poista</a></td>
+				<td><a th:href="@{/edit/{id}(id=${task.id})}"class="btn btn-success btn-sm" role="button">Muokkaa</a></td>
+				
+			</tr>
+		</tbody>
+	</table>
+		
+	<div class="col-md-5"style="padding:20px 0">
+		<h3>Kaikki tapahtumat</h3>
 		
 	</div>
-	<table class="table table-hover table-dark" id="myTable">
+	<table class="table table-striped" id="myTable">
 		<tbody>
 			<tr>
 				<th>Päivä</th>
