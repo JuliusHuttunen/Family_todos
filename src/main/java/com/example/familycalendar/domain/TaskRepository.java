@@ -9,4 +9,6 @@ public interface TaskRepository extends CrudRepository<Task, Long> {
 
 	List<Task> findAll(Sort sort);
 
+	List<Task> findByDescription(String description);
+
 }
